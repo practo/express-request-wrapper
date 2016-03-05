@@ -1,0 +1,19 @@
+{
+  "name": "express-request-wrapper",
+  "version": "1.0.0",
+  "description": "This is a library which allows me to address concerns of stamping required data for a request created using request middleware and also has been enpowerd with debugging and lot of othere cool error handling",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "Sandeep Pandey <s4n989@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandeep89/express-request-wrapper.git"
+  },
+  "dependencies": {
+    "debug": "^2.2.0",
+    "request": "^2.69.0"
+  }
+}
