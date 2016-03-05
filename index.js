@@ -1,11 +1,11 @@
 // Module containing common helper methods
 var request = require("request");
-var debug = require('debug')('express-request-wrapper');
+var debug = require('debug')('express');
 
 var util = function() {
     var public = {};
     var debugOn = process.env.DEBUG ?
-        process.env.DEBUG.indexOf('oneness') > -1 : false;
+        process.env.DEBUG.indexOf('express') > -1 : false;
 
     /**
         Base wrapper on request post call, this gives us opportunity to add
