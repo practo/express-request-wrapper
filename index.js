@@ -66,8 +66,18 @@ var util = function() {
                 });
     }
 
-    public.makePatchCall = function(url, formData, headers, cb) {
+    public.makePatchCall = function(url, formData, headers, cb, isForm) {
         if (debugOn) console.time("patchRequest " + url);
+
+        var requestData = {
+            url: url,
+            json: formData,
+            headers: headers
+        }
+        if (isForm) {
+            delete requestData.json;
+            requestData.form = formData;
+        }
         request
             .patch({
                     url: url,

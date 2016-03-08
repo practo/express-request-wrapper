@@ -27,7 +27,7 @@ Method to forward incoming GET call
 
 `cb - *require, call back function or the format function(err, body, response)`
 
-### makePatchCall(url, formData, headers, cb)
+### makePatchCall(url, formData, headers, cb, isForm)
 Method to forward incoming PATCH call
 
 `url - *requried, Url for making PATCH proxy request`
@@ -37,6 +37,8 @@ Method to forward incoming PATCH call
 `headers - *required, Object containing all the required headers, (do not forward 'host' and 'accept-encoding')`
 
 `cb - *required, call back function or the format function(err, body, response)`
+
+`isForm - optional, if the server is expecting request as form`
 
 ### makeDeleteCall(url, headers, cb)
 Forward incoming delete request
