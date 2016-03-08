@@ -79,11 +79,7 @@ var util = function() {
             requestData.form = formData;
         }
         request
-            .patch({
-                    url: url,
-                    json: formData,
-                    headers: headers
-                },
+            .patch(requestData,
                 function(err, response, body) {
                     if (err) {
                         return cb(err);
