@@ -47,7 +47,7 @@ var util = function() {
         request
             .get({
                     url: url,
-                    query: query,
+                    qs: query,
                     headers: headers
                 },
                 function(err, response, body) {
