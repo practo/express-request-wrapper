@@ -40,7 +40,7 @@ var util = function() {
                             "post call " + url), body, response);
                     }
                 });
-    }
+    };
 
     public.makeGetCall = function(url, query, headers, cb) {
         if (debugOn) console.time("getRequest " + url);
@@ -64,7 +64,7 @@ var util = function() {
                             "in get Request " + url), body, response);
                     }
                 });
-    }
+    };
 
     public.makePatchCall = function(url, formData, headers, cb, isForm) {
         if (debugOn) console.time("patchRequest " + url);
@@ -94,7 +94,38 @@ var util = function() {
                             "patch call " + url), body, response);
                     }
                 })
-    }
+    };
+
+
+    public.makePatchCall = function(url, formData, headers, cb, isForm) {
+        if (debugOn) console.time("putRequest " + url);
+
+        var requestData = {
+            url: url,
+            json: formData,
+            headers: headers
+        }
+        if (isForm) {
+            delete requestData.json;
+            requestData.form = formData;
+        }
+        request
+            .put(requestData,
+                function(err, response, body) {
+                    if (err) {
+                        return cb(err);
+                    }
+                    if (response.statusCode == 200) {
+                        if (debugOn) console.timeEnd("putRequest " + url);
+                        return cb(null, body, response)
+                    } else {
+                        debug('%s %s %s %s', url, response.statusCode,
+                            JSON.stringify(formData), JSON.stringify(headers));
+                        return cb(new Error("Invalid response from server in " +
+                            "patch call " + url), body, response);
+                    }
+                })
+    };
 
     public.makeDeleteCall = function(url, headers, cb) {
         if (debugOn) console.time("deleteRequest " + url);
@@ -114,7 +145,7 @@ var util = function() {
                     "delete call " + url), body, response);
             }
         })
-    }
+    };
     return public;
 }
 
