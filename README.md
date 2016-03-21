@@ -40,6 +40,19 @@ Method to forward incoming PATCH call
 
 `isForm - optional, if the server is expecting request as form`
 
+### makePutCall(url, formData, headers, cb, isForm)
+Method to forward incoming PUT call
+
+`url - *requried, Url for making PUT proxy request`
+
+`formData - *requried, Body or form data which requried to be forwarded with the request `
+
+`headers - *required, Object containing all the required headers, (do not forward 'host' and 'accept-encoding')`
+
+`cb - *required, call back function or the format function(err, body, response)`
+
+`isForm - optional, if the server is expecting request as form`
+
 ### makeDeleteCall(url, headers, cb)
 Forward incoming delete request
 `url - *requried, Url for making post proxy request`
