@@ -97,7 +97,7 @@ var util = function() {
     };
 
 
-    public.makePatchCall = function(url, formData, headers, cb, isForm) {
+    public.makePutCall = function(url, formData, headers, cb, isForm) {
         if (debugOn) console.time("putRequest " + url);
 
         var requestData = {
