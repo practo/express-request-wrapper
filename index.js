@@ -25,7 +25,7 @@ var util = function() {
             delete requestData.json;
             requestData.form = formData;
         }
-        if(ifFormData){
+        if(isFormData){
             delete requestData.json;
             requestData.formData = formData;
         }
