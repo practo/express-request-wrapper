@@ -13,7 +13,8 @@ var util = function() {
 
         Since this is a proxy give the response object to underlying callback
     */
-    public.makePostCall = function(url, formData, headers, cb, isForm) {
+    public.makePostCall = function(url, formData, headers, cb, 
+        isForm, isFormData) {
         if (debugOn) console.time("postRequest " + url);
         var requestData = {
             url: url,
@@ -23,6 +24,10 @@ var util = function() {
         if (isForm) {
             delete requestData.json;
             requestData.form = formData;
+        }
+        if(ifFormData){
+            delete requestData.json;
+            requestData.formData = formData;
         }
         request
             .post(requestData,
