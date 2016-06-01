@@ -89,7 +89,7 @@ var util = function() {
                     if (err) {
                         return cb(err);
                     }
-                    if (response.statusCode == 200) {
+                    if ([201, 200].indexOf(response.statusCode) > -1) {
                         if (debugOn) console.timeEnd("patchRequest " + url);
                         return cb(null, body, response)
                     } else {
