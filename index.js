@@ -12,8 +12,20 @@ var util = function() {
         pre-processing if requried on request default post request
 
         Since this is a proxy give the response object to underlying callback
+        `isForm`, pass true if you want to make a form url encoded request
+        `isFormData`, pass true if you want to make a multipart form data request 
     */
-    public.makePostCall = function(url, formData, headers, cb, 
+    var getErrorMessage = function(url, body, response) {
+        var errorMessage = "Invalid response from server in " +
+            "post call " + url;
+        if (body) {
+            body = typeof(body) == 'object' ? JSON.stringify(body) : body;
+            errorMessage = body + ", url: " + url;
+            errorMessage = errorMessage + ", statusCode: " + response.statusCode;
+        }
+        return errorMessage;
+    }
+    public.makePostCall = function(url, formData, headers, cb,
         isForm, isFormData) {
         if (debugOn) console.time("postRequest " + url);
         var requestData = {
@@ -25,7 +37,7 @@ var util = function() {
             delete requestData.json;
             requestData.form = formData;
         }
-        if(isFormData){
+        if (isFormData) {
             delete requestData.json;
             requestData.formData = formData;
         }
@@ -41,8 +53,8 @@ var util = function() {
                     } else {
                         debug('%s %s %s %s', url, response.statusCode,
                             JSON.stringify(formData), JSON.stringify(headers));
-                        return cb(new Error("Invalid response from server in " +
-                            "post call " + url), body, response);
+                        return cb(new Error(getErrorMessage(url, body, response)),
+                            body, response);
                     }
                 });
     };
@@ -65,8 +77,8 @@ var util = function() {
                     } else {
                         debug('%s %s %s %s', url, response.statusCode,
                             JSON.stringify(query), JSON.stringify(headers));
-                        return cb(new Error("Invalid response from server " +
-                            "in get Request " + url), body, response);
+                        return cb(new Error(getErrorMessage(url, body, response)),
+                            body, response);
                     }
                 });
     };
@@ -95,8 +107,8 @@ var util = function() {
                     } else {
                         debug('%s %s %s %s', url, response.statusCode,
                             JSON.stringify(formData), JSON.stringify(headers));
-                        return cb(new Error("Invalid response from server in " +
-                            "patch call " + url), body, response);
+                        return cb(new Error(getErrorMessage(url, body, response)),
+                            body, response);
                     }
                 })
     };
@@ -126,8 +138,9 @@ var util = function() {
                     } else {
                         debug('%s %s %s %s', url, response.statusCode,
                             JSON.stringify(formData), JSON.stringify(headers));
-                        return cb(new Error("Invalid response from server in " +
-                            "patch call " + url), body, response);
+                        return cb(new Error(getErrorMessage(url, body, response)),
+                            body, response);
+
                     }
                 })
     };
@@ -146,8 +159,8 @@ var util = function() {
                 return cb(null, body, response)
             } else {
                 debug("%s %s %s", url, response.statusCode, JSON.stringify(headers));
-                return cb(new Error("Invalid response from server in " +
-                    "delete call " + url), body, response);
+                return cb(new Error(getErrorMessage(url, body, response)),
+                    body, response);
             }
         })
     };
