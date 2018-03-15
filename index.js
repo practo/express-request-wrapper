@@ -63,15 +63,15 @@ var util = function() {
     * pass response if you want to pipe the response
     * This is needed for file download
     **/
-    public.makeGetCall = function(url, query, headers, cb, res) {
+    public.makeGetCall = function(url, query, headers, cb, isPipe) {
         if (debugOn) console.time("getRequest " + url);
-        if (res) {
+        if (isPipe) {
             request
                 .get({
                         url: url,
                         qs: query,
                         headers: headers
-                    }).pipe(res);
+                    }).pipe(cb);
         } else {
             request
                 .get({
