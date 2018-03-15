@@ -59,28 +59,41 @@ var util = function() {
                 });
     };
 
-    public.makeGetCall = function(url, query, headers, cb) {
+    /**
+    * pass response if you want to pipe the response
+    * This is needed for file download
+    **/
+    public.makeGetCall = function(url, query, headers, cb, res) {
         if (debugOn) console.time("getRequest " + url);
-        request
-            .get({
-                    url: url,
-                    qs: query,
-                    headers: headers
-                },
-                function(err, response, body) {
-                    if (err) {
-                        return cb(err);
-                    }
-                    if (response.statusCode == 200) {
-                        if (debugOn) console.timeEnd("getRequest " + url);
-                        return cb(null, body, response)
-                    } else {
-                        debug('%s %s %s %s', url, response.statusCode,
-                            JSON.stringify(query), JSON.stringify(headers));
-                        return cb(new Error(getErrorMessage(url, body, response)),
-                            body, response);
-                    }
-                });
+        if (res) {
+            request
+                .get({
+                        url: url,
+                        qs: query,
+                        headers: headers
+                    }).pipe(res);
+        } else {
+            request
+                .get({
+                        url: url,
+                        qs: query,
+                        headers: headers
+                    },
+                    function(err, response, body) {
+                        if (err) {
+                            return cb(err);
+                        }
+                        if (response.statusCode == 200) {
+                            if (debugOn) console.timeEnd("getRequest " + url);
+                            return cb(null, body, response)
+                        } else {
+                            debug('%s %s %s %s', url, response.statusCode,
+                                JSON.stringify(query), JSON.stringify(headers));
+                            return cb(new Error(getErrorMessage(url, body, response)),
+                                body, response);
+                        }
+                    });
+        }
     };
 
     public.makePatchCall = function(url, formData, headers, cb, isForm) {
