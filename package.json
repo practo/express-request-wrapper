@@ -1,6 +1,6 @@
 {
   "name": "express-request-wrapper",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "This is a library which allows me to address concerns of stamping required data for a request created using request middleware and also has been enpowerd with debugging and lot of othere cool error handling",
   "main": "index.js",
   "scripts": {
