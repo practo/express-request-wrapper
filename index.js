@@ -1,6 +1,5 @@
 // Module containing common helper methods
 var request = require("request");
-var debug = require('debug')('express');
 
 var util = function() {
     var public = {};
@@ -51,8 +50,6 @@ var util = function() {
                         if (debugOn) console.timeEnd("postRequest " + url);
                         return cb(null, body, response)
                     } else {
-                        debug('%s %s %s %s', url, response.statusCode,
-                            JSON.stringify(formData), JSON.stringify(headers));
                         return cb(new Error(getErrorMessage(url, body, response)),
                             body, response);
                     }
@@ -87,8 +84,6 @@ var util = function() {
                             if (debugOn) console.timeEnd("getRequest " + url);
                             return cb(null, body, response)
                         } else {
-                            debug('%s %s %s %s', url, response.statusCode,
-                                JSON.stringify(query), JSON.stringify(headers));
                             return cb(new Error(getErrorMessage(url, body, response)),
                                 body, response);
                         }
@@ -118,8 +113,6 @@ var util = function() {
                         if (debugOn) console.timeEnd("patchRequest " + url);
                         return cb(null, body, response)
                     } else {
-                        debug('%s %s %s %s', url, response.statusCode,
-                            JSON.stringify(formData), JSON.stringify(headers));
                         return cb(new Error(getErrorMessage(url, body, response)),
                             body, response);
                     }
@@ -149,8 +142,6 @@ var util = function() {
                         if (debugOn) console.timeEnd("putRequest " + url);
                         return cb(null, body, response)
                     } else {
-                        debug('%s %s %s %s', url, response.statusCode,
-                            JSON.stringify(formData), JSON.stringify(headers));
                         return cb(new Error(getErrorMessage(url, body, response)),
                             body, response);
 
@@ -171,7 +162,6 @@ var util = function() {
                 if (debugOn) console.timeEnd("deleteRequest " + url);
                 return cb(null, body, response)
             } else {
-                debug("%s %s %s", url, response.statusCode, JSON.stringify(headers));
                 return cb(new Error(getErrorMessage(url, body, response)),
                     body, response);
             }
